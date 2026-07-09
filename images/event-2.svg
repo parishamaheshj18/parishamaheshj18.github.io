@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#33302b"/>
+      <stop offset="100%" stop-color="#151412"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g2)"/>
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="150" x2="1600" y2="150"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="750" x2="1600" y2="750"/>
+  </g>
+  <text x="80" y="470" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#e9e6df" opacity="0.85">Pacific Graphics 2023</text>
+  <text x="80" y="520" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="2" fill="#b9b6ae">DAEJEON, SOUTH KOREA — REPLACE WITH EVENT PHOTO</text>
+</svg>
