@@ -197,6 +197,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const descEl = document.getElementById('modalDesc');
     const tagsEl = document.getElementById('modalTags');
     const thumbEl = document.getElementById('modalThumb');
+    const linkEl = document.getElementById('modalLink');
+    const defaultLink = linkEl ? linkEl.href : '';
     const closeBtn = modal.querySelector('.modal-close');
     let lastFocused = null;
 
@@ -205,6 +207,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         titleEl.textContent = tile.dataset.title || '';
         descEl.textContent = tile.dataset.desc || '';
         tagsEl.textContent = tile.dataset.tags || '';
+        if (linkEl) linkEl.href = tile.dataset.link || defaultLink;
 
         const tileThumb = tile.querySelector('.project-thumb');
         thumbEl.className = 'modal-thumb';
