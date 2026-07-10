@@ -150,16 +150,19 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 // Timeline progress line — fills as you scroll through Experience + Publications
 // =====================
 (function () {
-    const wrap = document.querySelector('.timeline-wrap');
-    const progress = document.querySelector('.timeline-progress');
-    if (!wrap || !progress) return;
+    const wraps = document.querySelectorAll('.timeline-wrap');
+    if (!wraps.length) return;
 
     function update() {
-        const rect = wrap.getBoundingClientRect();
-        const reference = window.innerHeight * 0.5;
-        let filled = reference - rect.top;
-        filled = Math.max(0, Math.min(filled, rect.height));
-        progress.style.height = `${filled}px`;
+        wraps.forEach((wrap) => {
+            const progress = wrap.querySelector('.timeline-progress');
+            if (!progress) return;
+            const rect = wrap.getBoundingClientRect();
+            const reference = window.innerHeight * 0.5;
+            let filled = reference - rect.top;
+            filled = Math.max(0, Math.min(filled, rect.height));
+            progress.style.height = `${filled}px`;
+        });
     }
 
     window.addEventListener('scroll', update, { passive: true });

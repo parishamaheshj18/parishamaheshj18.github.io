@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parisha Joshi — Computer Science Researcher</title>
-<meta name="description" content="Parisha Joshi — Ph.D. researcher in computer graphics, vision, and machine learning at Clemson University.">
+<title>Parisha Joshi — Machine Learning &amp; Applied AI Engineer</title>
+<meta name="description" content="Parisha Joshi — Machine learning engineer and applied AI researcher with production software engineering experience; Ph.D. candidate at Clemson University.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -130,9 +130,9 @@
             <a href="#about">About</a>
             <a href="#education">Education</a>
             <a href="#experience">Experience</a>
-            <a href="#publications">Publications</a>
             <a href="#projects">Projects</a>
             <a href="#skills">Skills</a>
+            <a href="#publications">Publications</a>
             <a href="#news">News</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -147,7 +147,14 @@
             <div>
                 <p class="eyebrow">Ph.D. Candidate, Computer Science — Clemson University</p>
                 <h1>Parisha Joshi</h1>
-                <p class="lede">I develop accurate, computationally efficient models for reconstructing the spectral properties of illuminants, strengthening data-driven inverse rendering pipelines for structural color effects such as diffraction, refraction, and iridescence, with applications in color correction, simulated environments, computer vision, and 3D scene reconstruction.</p>
+                <p class="lede">I'm a Machine Learning researcher and engineer building data-driven models for inverse problems, and applied AI, with production software experience shipping systems at scale.</p>
+                 <p class="lede research-line"><strong class="research-label">Broad research interests:</strong> time series forecasting, remote sensing hyperspectral data, signal processing, Reaction-diffusion systems, nonlinear stochastic dynamics, compressive sampling, Monte Carlo simulation, Bayesian statistics, machine learning, deep learning, and optimization.</p>
+
+                <p class="lede research-line"><strong class="research-label">Current research:</strong> I am developing accurate and computationally efficient models to render physical based reflection properties of material. My research enhances the data driven material capture pipelines for accurate structural color properties such as diffraction, refraction, and iridescence. Which is to be used in simulated environments, computer vision, and 3D space reconstructions.</p>
+                <p class="availability-badge">
+                    <span class="availability-dot" aria-hidden="true"></span>
+                    Looking for roles in Software Engineering / AI / ML / Data Science
+                </p>
                 <div class="intro-actions">
                     <a href="assets/Parisha_Joshi_CV.pdf" class="btn btn-primary" download>Download CV</a>
                     <a href="#publications" class="btn btn-ghost">Publications</a>
@@ -220,7 +227,7 @@
                     <p class="entry-date">Aug 2022 – Present</p>
                 </div>
                 <p class="entry-org">Clemson University · Clemson, SC</p>
-                <p class="entry-text">Researching inverse rendering of structural materials, predicting illumination SPD for 2D-to-3D scene reconstruction, and robust spectral color correction via gradient descent on color-chart spectral densities, plus calibrated material-capture datasets (VarIS). Automated data-mining workflows for real-time inference engines and implemented anisotropic BRDF hair models (Kajiya–Kay, Marschner), alongside traffic-image segmentation work.</p>
+                <p class="entry-text">Apply gradient-based optimization and neural-network estimation to reconstruct high-dimensional signals from sparse, real-world sensor data, and build calibrated computer-vision datasets (VarIS) for image and material capture. Design automated data pipelines for real-time inference engines and develop image-segmentation models for traffic imagery, with additional work in anisotropic material modeling (Kajiya–Kay, Marschner) — applied to color-accurate imaging, 3D scene reconstruction, and inverse-rendering research.</p>
             </div>
 
             <div class="entry">
@@ -229,7 +236,7 @@
                     <p class="entry-date">Aug 2020 – Jul 2021</p>
                 </div>
                 <p class="entry-org">MPower Logic, Inc. — State Farm · Bloomington, IL</p>
-                <p class="entry-text">Built React front-ends and REST APIs for State Farm's customer-facing tools, using A/B testing and cloud-integrated CI/CD in an Agile workflow.</p>
+                <p class="entry-text">Built and deployed production React front-ends and REST APIs for State Farm's customer-facing platforms, running A/B tests and shipping through cloud-integrated CI/CD pipelines in an Agile workflow.</p>
             </div>
 
             <div class="entry">
@@ -298,7 +305,101 @@
                 </ul>
             </div>
         </section>
+    </div>
 
+    <!-- Projects -->
+    <section id="projects" class="section alt">
+        <div class="wrap">
+            <div class="section-head-row">
+                <h2 class="section-title">Projects</h2>
+                <a href="https://github.com/parishamaheshj18" target="_blank" rel="noopener" class="text-link">Code on GitHub ↗</a>
+            </div>
+            <p class="section-hint">Click a project to read more.</p>
+            <div class="project-grid">
+                <button type="button" class="project-tile"
+                    data-title="Credit Card Fraud Detection"
+                    data-desc="Built fraud-detection models with Random Forest, XGBoost, and logistic regression, combining them with risk analytics to quantify real-world financial impact."
+                    data-tags="XGBoost · Random Forest · ROC-AUC">
+                    <span class="project-thumb" data-img="images/projects/fraud-detection.jpg"></span>
+                    <span class="project-tile-title">Credit Card Fraud Detection</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Time-Series Forecasting for Stock Prices"
+                    data-desc="Built LSTM and GRU forecasting models that incorporate market sentiment and macroeconomic signals to predict stock price movement for financial risk management."
+                    data-tags="LSTM · GRU">
+                    <span class="project-thumb" data-img="images/projects/stock-forecasting.jpg"></span>
+                    <span class="project-tile-title">Time-Series Forecasting for Stock Prices</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Hearing-Loss Threshold Prediction from Brain MRI"
+                    data-desc="Built a CNN that predicts hearing-loss thresholds directly from brain MRI scans, reaching 89% accuracy on a limited clinical dataset via a reproducible feature-extraction pipeline."
+                    data-tags="Keras · CNN · Healthcare">
+                    <span class="project-thumb" data-img="images/projects/hearing-mri.jpg"></span>
+                    <span class="project-tile-title">Hearing-Loss Threshold Prediction from Brain MRI</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Fake News Detection"
+                    data-desc="Built an end-to-end NLP pipeline using TF-IDF features and a Random Forest classifier to flag misinformation, improving detection precision by 12%."
+                    data-tags="NLP · TF-IDF · Random Forest">
+                    <span class="project-thumb" data-img="images/projects/fake-news.jpg"></span>
+                    <span class="project-tile-title">Fake News Detection</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Direction-of-Arrival Estimation"
+                    data-desc="Built a deep neural network for real-time signal localization (2–4 sources), outperforming the classical MUSIC estimator and matching the Cramér–Rao bound across signal-to-noise ratios."
+                    data-tags="DNN · Signal Processing · MATLAB">
+                    <span class="project-thumb" data-img="images/projects/doa-estimation.jpg"></span>
+                    <span class="project-tile-title">Direction-of-Arrival Estimation</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Reinforcement Learning: Policy Iteration"
+                    data-desc="Modeled sequential decision-making under uncertainty with Markov Decision Processes, using policy iteration to optimize reward-cost tradeoffs in resource-constrained systems."
+                    data-tags="MDP · MATLAB">
+                    <span class="project-thumb" data-img="images/projects/policy-iteration.jpg"></span>
+                    <span class="project-tile-title">Reinforcement Learning: Policy Iteration</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Low-Data Traffic Image Segmentation"
+                    data-desc="Built convolutional autoencoder and Deep Convolutional Inverse Graphics Network models to segment traffic imagery from limited, unstructured data, comparing accuracy, precision, recall, and F1."
+                    data-tags="PyTorch · Segmentation">
+                    <span class="project-thumb" data-img="images/projects/segmentation.jpg"></span>
+                    <span class="project-tile-title">Low-Data Traffic Image Segmentation</span>
+                </button>
+            </div>
+
+            <div class="subsection-head">
+                <h3 class="subsection-title">Graphics &amp; Rendering Research</h3>
+                <p class="section-hint">Physically based rendering and material-modeling work from my Ph.D. research.</p>
+            </div>
+            <div class="project-grid">
+                <button type="button" class="project-tile"
+                    data-title="Realistic Hair Rendering in PBRT"
+                    data-desc="Extended the pbrt renderer with two new materials, &quot;kajiya&quot; and &quot;marschner,&quot; implementing anisotropic BRDF models for physically based hair rendering."
+                    data-tags="C++ · PBRT · Rendering">
+                    <span class="project-thumb" data-img="images/projects/pbrt-hair.jpg"></span>
+                    <span class="project-tile-title">Realistic Hair Rendering in PBRT</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Thin-Film Interference"
+                    data-desc="Rendered soap-bubble optics with air–soap–air layer interference using PBRT."
+                    data-tags="C++ · PBRT">
+                    <span class="project-thumb" data-img="images/projects/thin-film.jpg"></span>
+                    <span class="project-tile-title">Thin-Film Interference</span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Reaction–Diffusion Pattern Extraction"
+                    data-desc="Extracted statistical structure from Gray–Scott model patterns in ParaView, modeling the biological patterns seen in animal and plant coloration."
+                    data-tags="Python · ParaView · Simulation">
+                    <span class="project-thumb" data-img="images/projects/reaction-diffusion.jpg"></span>
+                    <span class="project-tile-title">Reaction–Diffusion Pattern Extraction</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <div class="timeline-wrap">
+        <div class="timeline-progress"></div>
         <section id="publications" class="timeline-block">
             <h2 class="section-title">Publications</h2>
             <ul class="pub-list">
@@ -338,89 +439,6 @@
         </section>
     </div>
 
-    <!-- Projects -->
-    <section id="projects" class="section alt">
-        <div class="wrap">
-            <div class="section-head-row">
-                <h2 class="section-title">Projects</h2>
-                <a href="https://github.com/parishamaheshj18" target="_blank" rel="noopener" class="text-link">Code on GitHub ↗</a>
-            </div>
-            <p class="section-hint">Click a project to read more.</p>
-            <div class="project-grid">
-                <button type="button" class="project-tile"
-                    data-title="Reaction–Diffusion Pattern Extraction"
-                    data-desc="Extracted statistical structure from Gray–Scott model patterns in ParaView, modeling the biological patterns seen in animal and plant coloration."
-                    data-tags="Python · ParaView · Simulation">
-                    <span class="project-thumb" data-img="images/projects/reaction-diffusion.jpg"></span>
-                    <span class="project-tile-title">Reaction–Diffusion Pattern Extraction</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Realistic Hair Rendering in PBRT"
-                    data-desc="Extended the pbrt renderer with two new materials, &quot;kajiya&quot; and &quot;marschner,&quot; implementing anisotropic BRDF models for physically based hair rendering."
-                    data-tags="C++ · PBRT · Rendering">
-                    <span class="project-thumb" data-img="images/projects/pbrt-hair.jpg"></span>
-                    <span class="project-tile-title">Realistic Hair Rendering in PBRT</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Thin-Film Interference"
-                    data-desc="Rendered soap-bubble optics with air–soap–air layer interference using PBRT."
-                    data-tags="C++ · PBRT">
-                    <span class="project-thumb" data-img="images/projects/thin-film.jpg"></span>
-                    <span class="project-tile-title">Thin-Film Interference</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Low-Data Traffic Image Segmentation"
-                    data-desc="Explored convolutional autoencoders and a Deep Convolutional Inverse Graphics Network to segment traffic imagery under limited, unstructured data, comparing accuracy, precision, recall, and F1."
-                    data-tags="PyTorch · Segmentation">
-                    <span class="project-thumb" data-img="images/projects/segmentation.jpg"></span>
-                    <span class="project-tile-title">Low-Data Traffic Image Segmentation</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Credit Card Fraud Detection"
-                    data-desc="Built and validated fraud-detection models with Random Forest, XGBoost, and logistic regression, integrating risk analytics to quantify financial impact."
-                    data-tags="XGBoost · Random Forest · ROC-AUC">
-                    <span class="project-thumb" data-img="images/projects/fraud-detection.jpg"></span>
-                    <span class="project-tile-title">Credit Card Fraud Detection</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Hearing-Loss Threshold Prediction from Brain MRI"
-                    data-desc="Built a CNN to predict hearing thresholds from MRI scans with 89% accuracy on limited sample sizes, with a reproducible feature-extraction pipeline."
-                    data-tags="Keras · CNN · Healthcare">
-                    <span class="project-thumb" data-img="images/projects/hearing-mri.jpg"></span>
-                    <span class="project-tile-title">Hearing-Loss Threshold Prediction from Brain MRI</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Time-Series Forecasting for Stock Prices"
-                    data-desc="Implemented LSTM and GRU forecasting models incorporating market sentiment and macroeconomic signals for financial risk modeling."
-                    data-tags="LSTM · GRU">
-                    <span class="project-thumb" data-img="images/projects/stock-forecasting.jpg"></span>
-                    <span class="project-tile-title">Time-Series Forecasting for Stock Prices</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Fake News Detection"
-                    data-desc="Built an end-to-end NLP pipeline using TF-IDF features and a Random Forest classifier, improving misinformation-detection precision by 12%."
-                    data-tags="NLP · TF-IDF · Random Forest">
-                    <span class="project-thumb" data-img="images/projects/fake-news.jpg"></span>
-                    <span class="project-tile-title">Fake News Detection</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Reinforcement Learning: Policy Iteration"
-                    data-desc="Simulated policy iteration under uncertainty using Markov Decision Processes to evaluate reward–cost tradeoffs in constrained environments."
-                    data-tags="MDP · MATLAB">
-                    <span class="project-thumb" data-img="images/projects/policy-iteration.jpg"></span>
-                    <span class="project-tile-title">Reinforcement Learning: Policy Iteration</span>
-                </button>
-                <button type="button" class="project-tile"
-                    data-title="Direction-of-Arrival Estimation"
-                    data-desc="Built a deep neural network to estimate direction of arrival for 2–4 signals, benchmarked against the MUSIC estimator and CRLB across SNR ranges."
-                    data-tags="DNN · Signal Processing · MATLAB">
-                    <span class="project-thumb" data-img="images/projects/doa-estimation.jpg"></span>
-                    <span class="project-tile-title">Direction-of-Arrival Estimation</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
     <!-- Skills -->
     <section id="skills" class="section">
         <div class="wrap">
@@ -433,6 +451,15 @@
                     <h3>Programming</h3>
                     <ul class="skill-tags">
                         <li>Python</li><li>R</li><li>Java</li><li>C++</li><li>SQL</li><li>JavaScript</li><li>ReactJS</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.5-8.98A5.5 5.5 0 0 1 17 8.5a4 4 0 0 1-1 7.5"/><path d="M8 13v6M12 13v6M16 13v6M8 13l4-3 4 3"/></svg>
+                    </span>
+                    <h3>Cloud &amp; DevOps</h3>
+                    <ul class="skill-tags">
+                        <li>AWS Certified Cloud Practitioner</li><li>CI/CD Pipelines</li><li>Docker</li><li>Agile / Scrum</li>
                     </ul>
                 </div>
                 <div class="skill-card">
@@ -489,7 +516,7 @@
                     <img src="images/clemson AI Symp.jpeg" alt="" loading="lazy">
                     <div>
                         <p class="news-date">2024</p>
-                        <p class="news-text">Paper accepted at <strong>ICVGIP 2024</strong> in Bangalore, on spectral power distribution reconstruction for inverse rendering.</p>
+                        <p class="news-text">Paper accepted at <strong>ICVGIP 2024</strong> in Bangalore, on reconstructing light-source spectra for computer vision and rendering pipelines.</p>
                     </div>
                 </li>
                 <li class="news-item">
@@ -515,7 +542,7 @@
         <div class="wrap footer-grid">
             <div>
                 <h2 class="section-title small">Get in touch</h2>
-                <p class="lede small">Always glad to discuss research, collaborations, or opportunities in graphics, vision, and applied ML.</p>
+                <p class="lede small">Always glad to discuss machine learning, applied AI, and software engineering opportunities.</p>
             </div>
             <ul class="meta-list">
                 <li>
