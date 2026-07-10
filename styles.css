@@ -658,12 +658,20 @@ h1 {
     border-radius: 10px;
     padding: 0.85rem 0.85rem 1.1rem;
     box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.65), 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
 }
 
 .project-tile:hover .project-card {
     transform: translateY(-6px);
     box-shadow: 0 26px 38px -16px rgba(0, 0, 0, 0.7), 0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* Lit once the vein's scanline (script.js updateProgress) reaches this
+   card's row — reads as the glowing line handing off into the card
+   border instead of disappearing behind it. Stays lit for rows already
+   passed. */
+.project-card.vein-lit {
+    border-color: var(--accent);
 }
 
 .project-thumb {

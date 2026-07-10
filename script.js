@@ -237,6 +237,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
     const NS = 'http://www.w3.org/2000/svg';
     let glowPaths = [];
+    let litTargets = [];
 
     function addPath(d) {
         const bg = document.createElementNS(NS, 'path');
@@ -255,6 +256,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     function build() {
         while (svg.firstChild) svg.removeChild(svg.firstChild);
         glowPaths = [];
+        litTargets.forEach(({ el }) => el.classList.remove('vein-lit'));
+        litTargets = [];
 
         const hostRect = host.getBoundingClientRect();
         if (!hostRect.width || !hostRect.height) return;
@@ -291,12 +294,21 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
         const tiles = Array.from(grid.children);
         if (!tiles.length) return;
-        const firstTop = tiles[0].getBoundingClientRect().top;
-        const firstRow = tiles.filter((t) => Math.abs(t.getBoundingClientRect().top - firstTop) < 4);
+        // Column count comes from the grid's own track list, not from
+        // comparing tile positions — tiles in the same row can be mid
+        // entrance-transition at slightly different times (columns 2/3 have
+        // a staggered --stagger delay), which throws off any detection
+        // based on getBoundingClientRect().top.
+        const numCols = getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
+        const firstRow = tiles.slice(0, numCols);
         const colX = firstRow.map((t) => {
             const r = t.getBoundingClientRect();
             return r.left - hostRect.left + r.width / 2;
         });
+        // Tiles are auto-placed row-major, so index % numCols recovers which
+        // column each tile (in every row) belongs to.
+        const columns = Array.from({ length: numCols }, () => []);
+        tiles.forEach((t, i) => columns[i % numCols].push(t));
 
         const gridRect = grid.getBoundingClientRect();
         const gridTop = gridRect.top - hostRect.top;
@@ -314,11 +326,33 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         const topOffset = (gridTop - forkY) * 0.4;
         const bottomOffset = (mergeY - gridBottom) * 0.4;
 
-        colX.forEach((x) => {
-            const d = `M ${stemX} ${forkY} `
-                + `C ${stemX} ${forkY + topOffset}, ${x} ${gridTop - topOffset}, ${x} ${gridTop} `
-                + `L ${x} ${gridBottom} `
-                + `C ${x} ${gridBottom + bottomOffset}, ${stemX} ${mergeY - bottomOffset}, ${stemX} ${mergeY}`;
+        // The line ducks out wherever it would run behind a card — it stops
+        // just short of the card and picks back up just past it, so the
+        // card's own border glow (toggled in updateProgress) reads as the
+        // line continuing through the card rather than being hidden behind it.
+        const cardGap = 6;
+
+        colX.forEach((x, colIndex) => {
+            let d = `M ${stemX} ${forkY} `
+                + `C ${stemX} ${forkY + topOffset}, ${x} ${gridTop - topOffset}, ${x} ${gridTop} `;
+            let cursorY = gridTop;
+
+            columns[colIndex].forEach((tile) => {
+                const r = tile.getBoundingClientRect();
+                const tTop = r.top - hostRect.top;
+                const tBottom = r.bottom - hostRect.top;
+
+                const gapStart = Math.max(cursorY, tTop - cardGap);
+                if (gapStart > cursorY) d += `L ${x} ${gapStart} `;
+                cursorY = Math.max(cursorY, tBottom + cardGap);
+                d += `M ${x} ${cursorY} `;
+
+                const card = tile.querySelector('.project-card');
+                if (card) litTargets.push({ el: card, top: tTop, bottom: tBottom });
+            });
+
+            if (cursorY < gridBottom) d += `L ${x} ${gridBottom} `;
+            d += `C ${x} ${gridBottom + bottomOffset}, ${stemX} ${mergeY - bottomOffset}, ${stemX} ${mergeY}`;
             addPath(d);
         });
 
@@ -333,7 +367,11 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
             }
         });
 
-        if (!reduceMotion) updateProgress();
+        if (reduceMotion) {
+            litTargets.forEach(({ el }) => el.classList.add('vein-lit'));
+        } else {
+            updateProgress();
+        }
     }
 
     // These paths only ever move downward (no upward loops), so Y is
@@ -363,6 +401,10 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
             if (!len) return;
             const revealed = lengthAtY(p, len, scanY);
             p.style.strokeDashoffset = `${len - revealed}`;
+        });
+
+        litTargets.forEach(({ el, top }) => {
+            if (scanY >= top) el.classList.add('vein-lit');
         });
     }
 
@@ -400,6 +442,15 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
     build();
     window.addEventListener('load', build);
+
+    // Google Fonts loads with font-display: swap, so real text metrics can
+    // land well after 'load' (slow connection, cold cache) — a late swap
+    // reflows card heights, which would otherwise leave the cached vein
+    // geometry (and the top/bottom the lit-border check compares against)
+    // stale until the next resize.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(build);
+    }
 })();
 
 // =====================
