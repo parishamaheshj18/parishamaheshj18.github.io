@@ -485,7 +485,7 @@ h1 {
     top: 0.4rem;
     width: 1px;
     height: 0%;
-    background: linear-gradient(to bottom, var(--accent-2), var(--accent));
+    background: var(--accent);
     box-shadow: 0 0 8px 0 var(--accent);
     transition: height 0.1s linear;
 }
@@ -523,7 +523,9 @@ h1 {
 .vein-glow {
     fill: none;
     stroke-width: 1;
-    filter: drop-shadow(0 0 5px var(--accent));
+    /* Match the timeline-progress rail's glow so the line reads as one
+       continuous strand where the branches meet the vertical rail. */
+    filter: drop-shadow(0 0 8px var(--accent));
 }
 
 .timeline-block + .timeline-block { margin-top: 4.5rem; }
@@ -658,7 +660,7 @@ h1 {
    scanline, reading as the line handing off into the card, then fades back
    once the scanline moves on. */
 .project-card.vein-lit {
-    background: #26362f;
+    background: #2f2a1f;
     border-color: var(--accent);
 }
 
@@ -700,15 +702,12 @@ h1 {
     line-height: 1.35;
 }
 
-/* Project tiles rise into view row by row as you scroll, with a slight
-   left-to-right cascade within each row (2-col grid). */
-.project-grid .project-tile:nth-child(2n) { --stagger: 0.09s; }
-
+/* Project tiles rise into view row by row as you scroll. Both cards in a
+   row share the same entrance timing so they grow together, in step. */
 .project-tile.reveal {
     opacity: 0;
-    transform: translateY(40px) rotateX(-22deg);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--stagger, 0s);
+    transform: translateY(28px) rotateX(-12deg);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-tile.reveal.is-visible {

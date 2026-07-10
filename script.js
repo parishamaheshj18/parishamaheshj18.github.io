@@ -273,11 +273,13 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         gradient.setAttribute('y2', '1');
         const rootStyles = getComputedStyle(document.documentElement);
         const accentColor = rootStyles.getPropertyValue('--accent').trim() || '#d7a463';
-        const accent2Color = rootStyles.getPropertyValue('--accent-2').trim() || '#4d9c86';
 
+        // One consistent glow color end-to-end — the line keeps the same
+        // color across the timeline, the Projects branches, and back, so it
+        // never appears to shift hue between sections.
         const stop1 = document.createElementNS(NS, 'stop');
         stop1.setAttribute('offset', '0%');
-        stop1.setAttribute('stop-color', accent2Color);
+        stop1.setAttribute('stop-color', accentColor);
         const stop2 = document.createElementNS(NS, 'stop');
         stop2.setAttribute('offset', '100%');
         stop2.setAttribute('stop-color', accentColor);
@@ -295,9 +297,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         if (!tiles.length) return;
         // Column count comes from the grid's own track list, not from
         // comparing tile positions — tiles in the same row can be mid
-        // entrance-transition at slightly different times (columns 2/3 have
-        // a staggered --stagger delay), which throws off any detection
-        // based on getBoundingClientRect().top.
+        // entrance-transition at slightly different times, which throws off
+        // any detection based on getBoundingClientRect().top.
         const numCols = getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
         const firstRow = tiles.slice(0, numCols);
         const colX = firstRow.map((t) => {
@@ -325,34 +326,24 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         const topOffset = (gridTop - forkY) * 0.4;
         const bottomOffset = (mergeY - gridBottom) * 0.4;
 
-        // The line ducks out wherever it would run behind a card — it stops
-        // just short of the card and picks back up just past it, so the
-        // card's own border glow (toggled in updateProgress) reads as the
-        // line continuing through the card rather than being hidden behind it.
-        const cardGap = 6;
-
+        // Each column gets one unbroken vertical line running straight down
+        // through the centers of its cards. The cards are fully opaque, so
+        // they cover the stretch of line behind them and it shows only in
+        // the gaps between rows — the cards read as threaded onto (attached
+        // to) a continuous glowing line, with their backgrounds lighting up
+        // in sync as the scanline passes through each one.
         colX.forEach((x, colIndex) => {
-            let d = `M ${stemX} ${forkY} `
-                + `C ${stemX} ${forkY + topOffset}, ${x} ${gridTop - topOffset}, ${x} ${gridTop} `;
-            let cursorY = gridTop;
+            const d = `M ${stemX} ${forkY} `
+                + `C ${stemX} ${forkY + topOffset}, ${x} ${gridTop - topOffset}, ${x} ${gridTop} `
+                + `L ${x} ${gridBottom} `
+                + `C ${x} ${gridBottom + bottomOffset}, ${stemX} ${mergeY - bottomOffset}, ${stemX} ${mergeY}`;
+            addPath(d);
 
             columns[colIndex].forEach((tile) => {
                 const r = tile.getBoundingClientRect();
-                const tTop = r.top - hostRect.top;
-                const tBottom = r.bottom - hostRect.top;
-
-                const gapStart = Math.max(cursorY, tTop - cardGap);
-                if (gapStart > cursorY) d += `L ${x} ${gapStart} `;
-                cursorY = Math.max(cursorY, tBottom + cardGap);
-                d += `M ${x} ${cursorY} `;
-
                 const card = tile.querySelector('.project-card');
-                if (card) litTargets.push({ el: card, top: tTop, bottom: tBottom });
+                if (card) litTargets.push({ el: card, top: r.top - hostRect.top, bottom: r.bottom - hostRect.top });
             });
-
-            if (cursorY < gridBottom) d += `L ${x} ${gridBottom} `;
-            d += `C ${x} ${gridBottom + bottomOffset}, ${stemX} ${mergeY - bottomOffset}, ${stemX} ${mergeY}`;
-            addPath(d);
         });
 
         glowPaths.forEach((p) => {
