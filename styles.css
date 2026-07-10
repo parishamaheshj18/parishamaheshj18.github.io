@@ -257,27 +257,6 @@ svg { display: block; }
 
 .section-title.small { margin-bottom: 0.75rem; }
 
-.section-head-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.section-head-row .section-title { margin-bottom: 0.75rem; }
-
-.section-hint {
-    font-size: 0.82rem;
-    color: var(--ink-faint);
-    margin-bottom: 1.75rem;
-}
-
-.text-link {
-    font-size: 0.9rem;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
 /* =========================================================
    Intro
    ========================================================= */
