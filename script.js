@@ -6,47 +6,57 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 (function () {
     const slideshow = document.querySelector('.slideshow');
     const slides = document.querySelectorAll('.slide');
-    const dotsWrap = document.querySelector('.slide-dots');
-    if (!slides.length || !dotsWrap) return;
+    const prevBtn = document.querySelector('.slide-arrow-prev');
+    const nextBtn = document.querySelector('.slide-arrow-next');
+    if (!slides.length || !slideshow) return;
 
     let current = 0;
     const intervalMs = 5000;
     const captionEyebrow = document.querySelector('.slide-caption .slide-eyebrow');
-    const captionTitle = document.querySelector('.slide-caption .slide-title');
-
-    slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.setAttribute('aria-label', `Show slide ${i + 1}`);
-        if (i === 0) dot.classList.add('is-active');
-        dot.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(dot);
-    });
-    const dots = dotsWrap.querySelectorAll('button');
+    let timer = null;
 
     function setCaption(slide) {
-        if (!captionEyebrow || !captionTitle) return;
+        if (!captionEyebrow) return;
         captionEyebrow.textContent = slide.dataset.eyebrow || '';
-        captionTitle.textContent = slide.dataset.title || '';
     }
 
     function goTo(index) {
         slides[current].classList.remove('is-active');
-        dots[current].classList.remove('is-active');
-        current = index;
+        current = (index + slides.length) % slides.length;
         slides[current].classList.add('is-active');
-        dots[current].classList.add('is-active');
         setCaption(slides[current]);
     }
 
     setCaption(slides[current]);
 
-    function next() {
-        goTo((current + 1) % slides.length);
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAutoplay() {
+        if (reduceMotion) return;
+        stopAutoplay();
+        timer = setInterval(next, intervalMs);
     }
 
-    if (!reduceMotion) setInterval(next, intervalMs);
+    function stopAutoplay() {
+        if (timer) clearInterval(timer);
+        timer = null;
+    }
 
-    if (!reduceMotion && slideshow) {
+    startAutoplay();
+
+    if (nextBtn) nextBtn.addEventListener('click', () => { next(); startAutoplay(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prev(); startAutoplay(); });
+
+    slideshow.addEventListener('mouseenter', stopAutoplay);
+    slideshow.addEventListener('mouseleave', startAutoplay);
+
+    slideshow.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { next(); startAutoplay(); }
+        if (e.key === 'ArrowLeft') { prev(); startAutoplay(); }
+    });
+
+    if (!reduceMotion) {
         window.addEventListener('scroll', () => {
             const rect = slideshow.getBoundingClientRect();
             if (rect.bottom < 0 || rect.top > window.innerHeight) return;
