@@ -245,7 +245,7 @@
                     <p class="entry-date">Aug 2019 – Aug 2020</p>
                 </div>
                 <p class="entry-org">Extreme Environments and Materials Lab, Virginia Tech · Blacksburg, VA</p>
-                <p class="entry-text">With Dr. Tomonari Furukawa, built a ROS-based LiDAR/RGB-D sensor-fusion system (ROS, PCL, OpenCV, Gazebo) for a ground robot mapping lab space in real time and delivering coffee to QR-tagged tables. Also designed a transpose-CNN wildfire prediction model using Adam optimization and dropout.</p>
+                <p class="entry-text">With Dr. Tomonari Furukawa, built a ROS-based LiDAR/RGB-D sensor-fusion system (ROS, PCL, OpenCV, Gazebo) for a ground robot mapping lab space in real time and delivering coffee to QR-tagged tables. Also designed a transpose-CNN wildfire prediction model using Adam optimization.</p>
             </div>
 
             <div class="entry">
@@ -308,7 +308,8 @@
     </div>
 
     <!-- Projects -->
-    <section id="projects" class="section alt">
+    <section id="projects" class="section alt vein-host">
+        <svg class="vein-overlay" aria-hidden="true"></svg>
         <div class="wrap">
             <div class="section-head-row">
                 <h2 class="section-title">Projects</h2>
@@ -321,85 +322,98 @@
                     data-desc="Built fraud-detection models with Random Forest, XGBoost, and logistic regression, combining them with risk analytics to quantify real-world financial impact."
                     data-tags="XGBoost · Random Forest · ROC-AUC"
                     data-link="https://github.com/parishamaheshj18/credit_fraud_detection">
-                    <span class="project-thumb" data-img="images/projects/fraud-detection.jpg"></span>
-                    <span class="project-tile-title">Credit Card Fraud Detection</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/fraud-detection.png"></span>
+                        <span class="project-tile-title">Credit Card Fraud Detection</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Time-Series Forecasting for Stock Prices"
                     data-desc="Built LSTM and GRU forecasting models that incorporate market sentiment and macroeconomic signals to predict stock price movement for financial risk management."
                     data-tags="LSTM · GRU"
                     data-link="https://github.com/parishamaheshj18/stock_price_forecasting">
-                    <span class="project-thumb" data-img="images/projects/stock-forecasting.jpg"></span>
-                    <span class="project-tile-title">Time-Series Forecasting for Stock Prices</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/stock-forecasting.svg"></span>
+                        <span class="project-tile-title">Time-Series Forecasting for Stock Prices</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Hearing-Loss Threshold Prediction from Brain MRI"
                     data-desc="Built a CNN that predicts hearing-loss thresholds directly from brain MRI scans, reaching 89% accuracy on a limited clinical dataset via a reproducible feature-extraction pipeline."
                     data-tags="Keras · CNN · Healthcare"
                     data-link="https://github.com/parishamaheshj18/brain-mri-regression">
-                    <span class="project-thumb" data-img="images/projects/hearing-mri.jpg"></span>
-                    <span class="project-tile-title">Hearing-Loss Threshold Prediction from Brain MRI</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/hearing-mri.jpg"></span>
+                        <span class="project-tile-title">Hearing-Loss Threshold Prediction from Brain MRI</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Fake News Detection"
                     data-desc="Built an end-to-end NLP pipeline using TF-IDF features and a Random Forest classifier to flag misinformation, improving detection precision by 12%."
                     data-tags="NLP · TF-IDF · Random Forest"
                     data-link="https://github.com/parishamaheshj18/fake_news">
-                    <span class="project-thumb" data-img="images/projects/fake-news.jpg"></span>
-                    <span class="project-tile-title">Fake News Detection</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/fake-news.jpeg"></span>
+                        <span class="project-tile-title">Fake News Detection</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Direction-of-Arrival Estimation"
                     data-desc="Built a deep neural network for real-time signal localization (2–4 sources), outperforming the classical MUSIC estimator and matching the Cramér–Rao bound across signal-to-noise ratios."
                     data-tags="DNN · Signal Processing · MATLAB"
                     data-link="https://github.com/parishamaheshj18/direction_of_arrival_prediction_with_ml">
-                    <span class="project-thumb" data-img="images/projects/doa-estimation.jpg"></span>
-                    <span class="project-tile-title">Direction-of-Arrival Estimation</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/doa-estimation.jpg"></span>
+                        <span class="project-tile-title">Direction-of-Arrival Estimation</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Reinforcement Learning: Policy Iteration"
                     data-desc="Modeled sequential decision-making under uncertainty with Markov Decision Processes, using policy iteration to optimize reward-cost tradeoffs in resource-constrained systems."
                     data-tags="MDP · MATLAB"
                     data-link="https://github.com/parishamaheshj18/reinforcement_learning_matlab">
-                    <span class="project-thumb" data-img="images/projects/policy-iteration.jpg"></span>
-                    <span class="project-tile-title">Reinforcement Learning: Policy Iteration</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/policy-iteration.png"></span>
+                        <span class="project-tile-title">Reinforcement Learning: Policy Iteration</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Low-Data Traffic Image Segmentation"
                     data-desc="Built convolutional autoencoder and Deep Convolutional Inverse Graphics Network models to segment traffic imagery from limited, unstructured data, comparing accuracy, precision, recall, and F1."
                     data-tags="PyTorch · Segmentation"
                     data-link="https://github.com/parishamaheshj18/advanced_machine_learning_phase_2">
-                    <span class="project-thumb" data-img="images/projects/segmentation.jpg"></span>
-                    <span class="project-tile-title">Low-Data Traffic Image Segmentation</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/segmentation.png"></span>
+                        <span class="project-tile-title">Low-Data Traffic Image Segmentation</span>
+                    </span>
                 </button>
-            </div>
-
-            <div class="subsection-head">
-                <h3 class="subsection-title">Graphics &amp; Rendering Research</h3>
-                <p class="section-hint">Physically based rendering and material-modeling work from my Ph.D. research.</p>
-            </div>
-            <div class="project-grid">
                 <button type="button" class="project-tile"
                     data-title="Realistic Hair Rendering in PBRT"
                     data-desc="Extended the pbrt renderer with two new materials, &quot;kajiya&quot; and &quot;marschner,&quot; implementing anisotropic BRDF models for physically based hair rendering."
                     data-tags="C++ · PBRT · Rendering"
                     data-link="https://github.com/parishamaheshj18/pbrt_trial/tree/Final-Project">
-                    <span class="project-thumb" data-img="images/projects/pbrt-hair.jpg"></span>
-                    <span class="project-tile-title">Realistic Hair Rendering in PBRT</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/pbrt-hair.png"></span>
+                        <span class="project-tile-title">Realistic Hair Rendering in PBRT</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Thin-Film Interference"
                     data-desc="Rendered soap-bubble optics with air–soap–air layer interference using PBRT."
                     data-tags="C++ · PBRT">
-                    <span class="project-thumb" data-img="images/projects/thin-film.jpg"></span>
-                    <span class="project-tile-title">Thin-Film Interference</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/thin-film.png"></span>
+                        <span class="project-tile-title">Thin-Film Interference</span>
+                    </span>
                 </button>
                 <button type="button" class="project-tile"
                     data-title="Reaction–Diffusion Pattern Extraction"
                     data-desc="Extracted statistical structure from Gray–Scott model patterns in ParaView, modeling the biological patterns seen in animal and plant coloration."
                     data-tags="Python · ParaView · Simulation">
-                    <span class="project-thumb" data-img="images/projects/reaction-diffusion.jpg"></span>
-                    <span class="project-tile-title">Reaction–Diffusion Pattern Extraction</span>
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/reaction-diffusion.png"></span>
+                        <span class="project-tile-title">Reaction–Diffusion Pattern Extraction</span>
+                    </span>
                 </button>
             </div>
         </div>

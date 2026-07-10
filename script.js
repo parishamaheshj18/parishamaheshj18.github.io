@@ -147,6 +147,58 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 })();
 
 // =====================
+// Project thumbnails — 3D tilt-in entrance, then scroll-linked depth parallax
+// (cards shrink/dim as they drift away from the vertical center of the
+// viewport, so a row of cards moves together since they share a position)
+// =====================
+(function () {
+    const tiles = document.querySelectorAll('.project-tile');
+    if (!tiles.length || reduceMotion) return;
+
+    const active = new Set();
+
+    function applyDepth(tile) {
+        const viewportCenter = window.innerHeight / 2;
+        const rect = tile.getBoundingClientRect();
+        const tileCenter = rect.top + rect.height / 2;
+        const maxDist = viewportCenter + rect.height / 2;
+        const dist = Math.min(Math.abs(tileCenter - viewportCenter) / maxDist, 1);
+
+        const scale = 1 - dist * 0.12;
+        const opacity = 1 - dist * 0.55;
+
+        tile.style.transform = `translateY(0) rotateX(0deg) scale(${scale.toFixed(3)})`;
+        tile.style.opacity = opacity.toFixed(3);
+    }
+
+    tiles.forEach((tile) => {
+        tile.addEventListener('transitionend', (event) => {
+            if (event.target !== tile || event.propertyName !== 'transform') return;
+            if (!tile.classList.contains('is-visible')) return;
+            tile.classList.add('parallax-active');
+            active.add(tile);
+            applyDepth(tile);
+        });
+    });
+
+    let ticking = false;
+
+    function update() {
+        ticking = false;
+        active.forEach(applyDepth);
+    }
+
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+})();
+
+// =====================
 // Timeline progress line — fills as you scroll through Experience + Publications
 // =====================
 (function () {
@@ -168,6 +220,186 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
     update();
+})();
+
+// =====================
+// Timeline veins — bridges the glowing line from Teaching Experience through
+// the Projects grid (splitting into one branch per column) and back into a
+// single line before Publications. Geometry is measured live so it adapts
+// to the current column count (3 / 2 / 1 on narrower screens).
+// =====================
+(function () {
+    const host = document.querySelector('.vein-host');
+    const svg = host && host.querySelector('.vein-overlay');
+    const grid = host && host.querySelector('.project-grid');
+    const wraps = document.querySelectorAll('.timeline-wrap');
+    if (!host || !svg || !grid || wraps.length < 2) return;
+
+    const NS = 'http://www.w3.org/2000/svg';
+    let glowPaths = [];
+
+    function addPath(d) {
+        const bg = document.createElementNS(NS, 'path');
+        bg.setAttribute('d', d);
+        bg.setAttribute('class', 'vein-bg');
+        svg.appendChild(bg);
+
+        const glow = document.createElementNS(NS, 'path');
+        glow.setAttribute('d', d);
+        glow.setAttribute('class', 'vein-glow');
+        glow.setAttribute('stroke', 'url(#veinGradient)');
+        svg.appendChild(glow);
+        glowPaths.push(glow);
+    }
+
+    function build() {
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        glowPaths = [];
+
+        const hostRect = host.getBoundingClientRect();
+        if (!hostRect.width || !hostRect.height) return;
+        svg.setAttribute('width', hostRect.width);
+        svg.setAttribute('height', hostRect.height);
+        svg.setAttribute('viewBox', `0 0 ${hostRect.width} ${hostRect.height}`);
+
+        const defs = document.createElementNS(NS, 'defs');
+        const gradient = document.createElementNS(NS, 'linearGradient');
+        gradient.setAttribute('id', 'veinGradient');
+        gradient.setAttribute('x1', '0');
+        gradient.setAttribute('y1', '0');
+        gradient.setAttribute('x2', '0');
+        gradient.setAttribute('y2', '1');
+        const rootStyles = getComputedStyle(document.documentElement);
+        const accentColor = rootStyles.getPropertyValue('--accent').trim() || '#d7a463';
+        const accent2Color = rootStyles.getPropertyValue('--accent-2').trim() || '#4d9c86';
+
+        const stop1 = document.createElementNS(NS, 'stop');
+        stop1.setAttribute('offset', '0%');
+        stop1.setAttribute('stop-color', accent2Color);
+        const stop2 = document.createElementNS(NS, 'stop');
+        stop2.setAttribute('offset', '100%');
+        stop2.setAttribute('stop-color', accentColor);
+        gradient.appendChild(stop1);
+        gradient.appendChild(stop2);
+        defs.appendChild(gradient);
+        svg.appendChild(defs);
+
+        const stemRef = wraps[0].querySelector('.timeline-progress');
+        if (!stemRef) return;
+        const stemRect = stemRef.getBoundingClientRect();
+        const stemX = stemRect.left - hostRect.left + stemRect.width / 2;
+
+        const tiles = Array.from(grid.children);
+        if (!tiles.length) return;
+        const firstTop = tiles[0].getBoundingClientRect().top;
+        const firstRow = tiles.filter((t) => Math.abs(t.getBoundingClientRect().top - firstTop) < 4);
+        const colX = firstRow.map((t) => {
+            const r = t.getBoundingClientRect();
+            return r.left - hostRect.left + r.width / 2;
+        });
+
+        const gridRect = grid.getBoundingClientRect();
+        const gridTop = gridRect.top - hostRect.top;
+        const gridBottom = gridRect.bottom - hostRect.top;
+        const forkY = Math.max(gridTop - 40, 6);
+        const mergeY = Math.min(gridBottom + 40, hostRect.height - 6);
+
+        addPath(`M ${stemX} 0 L ${stemX} ${forkY}`);
+        addPath(`M ${stemX} ${mergeY} L ${stemX} ${hostRect.height}`);
+
+        // Control-point offsets are a fraction of the actual available span
+        // (not a fixed px value) so the curve's Y coordinate always keeps
+        // increasing monotonically along the path, however tight the span —
+        // the binary search in lengthAtY() depends on that being true.
+        const topOffset = (gridTop - forkY) * 0.4;
+        const bottomOffset = (mergeY - gridBottom) * 0.4;
+
+        colX.forEach((x) => {
+            const d = `M ${stemX} ${forkY} `
+                + `C ${stemX} ${forkY + topOffset}, ${x} ${gridTop - topOffset}, ${x} ${gridTop} `
+                + `L ${x} ${gridBottom} `
+                + `C ${x} ${gridBottom + bottomOffset}, ${stemX} ${mergeY - bottomOffset}, ${stemX} ${mergeY}`;
+            addPath(d);
+        });
+
+        glowPaths.forEach((p) => {
+            const len = p.getTotalLength();
+            p.dataset.veinLength = String(len);
+            if (reduceMotion) {
+                p.style.strokeDashoffset = '0';
+            } else {
+                p.style.strokeDasharray = `${len}`;
+                p.style.strokeDashoffset = `${len}`;
+            }
+        });
+
+        if (!reduceMotion) updateProgress();
+    }
+
+    // These paths only ever move downward (no upward loops), so Y is
+    // monotonic along their length — binary search finds exactly how much
+    // of the path sits above a given Y, in host-local pixels.
+    function lengthAtY(path, totalLen, targetY) {
+        let lo = 0;
+        let hi = totalLen;
+        for (let i = 0; i < 18; i++) {
+            const mid = (lo + hi) / 2;
+            if (path.getPointAtLength(mid).y < targetY) lo = mid; else hi = mid;
+        }
+        return lo;
+    }
+
+    function updateProgress() {
+        const rect = host.getBoundingClientRect();
+        const reference = window.innerHeight * 0.5;
+        // Same host-local scanline Y (in raw px) the plain timeline lines
+        // use for their own fill — keeps the glow's speed identical across
+        // the stem, the branches, and the timeline segments before/after.
+        let scanY = reference - rect.top;
+        scanY = Math.max(0, Math.min(scanY, rect.height));
+
+        glowPaths.forEach((p) => {
+            const len = parseFloat(p.dataset.veinLength);
+            if (!len) return;
+            const revealed = lengthAtY(p, len, scanY);
+            p.style.strokeDashoffset = `${len - revealed}`;
+        });
+    }
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(build, 150);
+    });
+
+    if (!reduceMotion) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                ticking = false;
+                updateProgress();
+            });
+        }, { passive: true });
+    }
+
+    // The grid sits below the fold, so at load time its tiles are still in
+    // their pre-reveal offset (translateY(40px)) — rebuild once the first
+    // tile actually settles into its final position (whenever that happens,
+    // be it immediately or after the user scrolls down to it).
+    const firstTile = grid.children[0];
+    if (firstTile) {
+        const onFirstTileSettled = (event) => {
+            if (event.target !== firstTile || event.propertyName !== 'transform') return;
+            firstTile.removeEventListener('transitionend', onFirstTileSettled);
+            build();
+        };
+        firstTile.addEventListener('transitionend', onFirstTileSettled);
+    }
+
+    build();
+    window.addEventListener('load', build);
 })();
 
 // =====================
