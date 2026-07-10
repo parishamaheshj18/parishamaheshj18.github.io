@@ -494,7 +494,15 @@ h1 {
    Projects grid (one branch per column) and back into Publications. */
 .vein-host { position: relative; }
 
-.vein-host > .wrap { position: relative; z-index: 1; }
+/* Indent the Projects content to the same left rail as the timeline
+   blocks (Experience / Teaching) so the "Projects" title lines up with
+   those titles and the vein stem runs down its left side, exactly like
+   the glowing timeline line beside the other section titles. */
+.vein-host > .wrap {
+    position: relative;
+    z-index: 1;
+    padding-left: 3.25rem;
+}
 
 .vein-overlay {
     position: absolute;
@@ -637,7 +645,7 @@ h1 {
     border-radius: 10px;
     padding: 0.85rem 0.85rem 1.1rem;
     box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.65), 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .project-tile:hover .project-card {
@@ -645,11 +653,12 @@ h1 {
     box-shadow: 0 26px 38px -16px rgba(0, 0, 0, 0.7), 0 8px 16px rgba(0, 0, 0, 0.45);
 }
 
-/* Lit once the vein's scanline (script.js updateProgress) reaches this
-   card's row — reads as the glowing line handing off into the card
-   border instead of disappearing behind it. Stays lit for rows already
-   passed. */
+/* Lit only while the vein's scanline (script.js updateProgress) is passing
+   through this card's row — the card background glows in sync with the
+   scanline, reading as the line handing off into the card, then fades back
+   once the scanline moves on. */
 .project-card.vein-lit {
+    background: #26362f;
     border-color: var(--accent);
 }
 
@@ -708,12 +717,9 @@ h1 {
 }
 
 /* Once a tile has finished its entrance, script.js takes over `transform`
-   and `opacity` on this element directly (inline styles) to drive the
-   scroll-linked depth parallax — cards shrink/dim as they drift away from
-   the vertical center of the viewport. */
-.project-tile.parallax-active {
-    transition: opacity 0.2s ease-out;
-}
+   on this element directly (inline styles) to drive the scroll-linked
+   depth parallax — cards shrink slightly as they drift away from the
+   vertical center of the viewport. */
 
 @media (prefers-reduced-motion: reduce) {
     .project-tile.reveal { opacity: 1; transform: none; }
@@ -960,4 +966,6 @@ h1 {
     .timeline-progress { left: 0.55rem; }
     .timeline-block .entry::before,
     .timeline-block .pub-list li::before { left: -1.6rem; }
+
+    .vein-host > .wrap { padding-left: 2.25rem; }
 }

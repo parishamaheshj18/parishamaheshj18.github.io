@@ -148,8 +148,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
 // =====================
 // Project thumbnails — 3D tilt-in entrance, then scroll-linked depth parallax
-// (cards shrink/dim as they drift away from the vertical center of the
-// viewport, so a row of cards moves together since they share a position)
+// (cards shrink slightly as they drift away from the vertical center of the
+// viewport, so a row of cards moves together since they share a position).
+// Cards stay fully opaque so the vein/scanline never shows through them.
 // =====================
 (function () {
     const tiles = document.querySelectorAll('.project-tile');
@@ -165,10 +166,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         const dist = Math.min(Math.abs(tileCenter - viewportCenter) / maxDist, 1);
 
         const scale = 1 - dist * 0.12;
-        const opacity = 1 - dist * 0.55;
 
         tile.style.transform = `translateY(0) rotateX(0deg) scale(${scale.toFixed(3)})`;
-        tile.style.opacity = opacity.toFixed(3);
     }
 
     tiles.forEach((tile) => {
@@ -403,8 +402,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
             p.style.strokeDashoffset = `${len - revealed}`;
         });
 
-        litTargets.forEach(({ el, top }) => {
-            if (scanY >= top) el.classList.add('vein-lit');
+        litTargets.forEach(({ el, top, bottom }) => {
+            el.classList.toggle('vein-lit', scanY >= top && scanY <= bottom);
         });
     }
 
