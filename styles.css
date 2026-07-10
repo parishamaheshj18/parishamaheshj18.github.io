@@ -606,7 +606,7 @@ h1 {
    ========================================================= */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.1rem;
     perspective: 1200px;
 }
@@ -692,9 +692,8 @@ h1 {
 }
 
 /* Project tiles rise into view row by row as you scroll, with a slight
-   left-to-right cascade within each row (3-col grid). */
-.project-grid .project-tile:nth-child(3n+2) { --stagger: 0.09s; }
-.project-grid .project-tile:nth-child(3n) { --stagger: 0.18s; }
+   left-to-right cascade within each row (2-col grid). */
+.project-grid .project-tile:nth-child(2n) { --stagger: 0.09s; }
 
 .project-tile.reveal {
     opacity: 0;
@@ -947,7 +946,7 @@ h1 {
 
     h1 { font-size: 2.2rem; }
 
-    .project-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-grid { grid-template-columns: 1fr; }
 
     .skills-grid { grid-template-columns: 1fr; }
 
@@ -961,8 +960,4 @@ h1 {
     .timeline-progress { left: 0.55rem; }
     .timeline-block .entry::before,
     .timeline-block .pub-list li::before { left: -1.6rem; }
-}
-
-@media (max-width: 480px) {
-    .project-grid { grid-template-columns: 1fr; }
 }
