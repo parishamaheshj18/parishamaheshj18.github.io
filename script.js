@@ -120,7 +120,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 // =====================
 (function () {
     const targets = document.querySelectorAll(
-        '.section-title, .entry, .project-tile, .skill-card, .news-item, .pub-list li'
+        '.section-title, .entry, .project-tile, .skill-card, .badge-card, .training-block, .pub-list li'
     );
     if (!targets.length) return;
 
