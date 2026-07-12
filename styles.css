@@ -971,9 +971,9 @@ h1 {
 
 .badge-preview {
     display: block;
-    margin: 0 auto 1.1rem;
-    width: 100%;
-    border-radius: 8px;
+    width: 128px;
+    margin: 0 auto 1.25rem;
+    border-radius: 6px;
     overflow: hidden;
     line-height: 0;
 }
@@ -981,11 +981,9 @@ h1 {
 .badge-preview img {
     width: 100%;
     height: auto;
-    aspect-ratio: 760 / 588;
-    object-fit: cover;
     border: 1px solid var(--line);
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     transition: transform 0.45s ease;
 }
 
