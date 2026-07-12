@@ -885,7 +885,8 @@ h1 {
 
 .badge-card {
     position: relative;
-    flex: 0 1 260px;
+    flex: 0 1 calc((100% - 2 * 1.25rem) / 3);
+    max-width: calc((100% - 2 * 1.25rem) / 3);
     background: var(--bg-card);
     border: 1px solid var(--line);
     border-radius: 12px;
@@ -1047,6 +1048,13 @@ h1 {
 /* =========================================================
    Responsive
    ========================================================= */
+@media (max-width: 900px) {
+    .badge-card {
+        flex-basis: calc((100% - 1.25rem) / 2);
+        max-width: calc((100% - 1.25rem) / 2);
+    }
+}
+
 @media (max-width: 720px) {
     .nav-toggle { display: flex; }
 
@@ -1079,7 +1087,7 @@ h1 {
 
     .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
 
-    .badge-card { flex-basis: 100%; }
+    .badge-card { flex-basis: 100%; max-width: 100%; }
 
     .timeline-wrap { padding-left: 2.25rem; }
     .timeline-wrap::before,
