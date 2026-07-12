@@ -964,6 +964,35 @@ h1 {
 
 .badge-verify:hover { border-color: var(--accent-2); }
 
+/* Certificate cards — PDF preview instead of a medallion */
+.badge-card--cert {
+    padding-top: 1.25rem;
+}
+
+.badge-preview {
+    display: block;
+    margin: 0 auto 1.1rem;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.badge-preview img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 760 / 588;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    transition: transform 0.45s ease;
+}
+
+.badge-card--cert:hover .badge-preview img {
+    transform: scale(1.04);
+}
+
 .training-block {
     margin-top: 3rem;
     padding-top: 2.25rem;
