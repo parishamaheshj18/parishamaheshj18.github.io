@@ -25,3 +25,6 @@ yarn-error.log*
 # Local environment files
 .env
 .env.local
+
+# Private papers, transcripts and application documents (not part of the site)
+images/Papers/

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 
@@ -313,6 +313,77 @@
         <div class="wrap">
             <h2 class="section-title">Projects</h2>
             <div class="project-grid">
+                <button type="button" class="project-tile"
+                    data-title="Iridescent Analyzer"
+                    data-desc="Imagine if you could capture the shimmering, angle-dependent color of a hummingbird feather from a video and reuse it in graphical renderings. Iridescent Analyzer is a multi-species structural-color pipeline for birds and insects: paint body-part regions (crown, back, neck) on a few keyframes, let SAM 2 propagate those masks across the full video on a Colab GPU, then measure per-frame hue, chroma, and brightness in CIE LAB space. Hue is treated as a circular variable with directional statistics to derive hue spread, hue velocity, and a combined iridescence index, all explored through interactive Streamlit charts."
+                    data-tags="Python · SAM 2 · Streamlit · CIE LAB"
+                    data-link="https://github.com/parishamaheshj18/IridescenceAnalyzer">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/iridescence-analyzer.png"></span>
+                        <span class="project-tile-title">Iridescent Analyzer</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Fourier Optical Shading for Nanostructural Diffraction"
+                    data-desc="Fourier-optics shaders built on Kirchhoff's diffraction formula can render the colors of quasi-periodic nanostructures in real time. This poster shows that these methods hit a convergence limit because they rely on Taylor-series expansions. It replaces that step with a Chebyshev approximation of the phasor function, which restores convergence and supports generic spectral rendering on the fly. Joint work with D. S. Dhillon, SIGGRAPH 2026 Posters."
+                    data-tags="Fourier Optics · Diffraction · Spectral Rendering"
+                    data-link="https://doi.org/10.1145/3799825.3818770">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/fourier-shading.png"></span>
+                        <span class="project-tile-title">Fourier Optical Shading for Nanostructural Diffraction</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Spotlight Spectra from CD Diffraction"
+                    data-desc="Measuring a light's spectral power distribution (SPD) normally takes a costly spectroradiometer. This method estimates a spotlight's full spectrum from a consumer-camera photo of the rainbow diffraction rings it casts on an ordinary compact disc, optionally paired with a color chart, without explicit geometric or color calibration. A neural model recovers fine spectral detail that a color chart alone cannot, generalizes across 49 simulated camera models (Nikon, Canon, Sony, iPhone, Samsung Galaxy), and improves spectral inverse rendering of diffractive and iridescent materials. Joint work with D. S. Dhillon, CEIG 2026 (Eurographics)."
+                    data-tags="Neural Networks · Spectral Imaging · Inverse Rendering"
+                    data-link="https://doi.org/10.2312/ceig.20261001">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/spotlight-spectra-cd.png"></span>
+                        <span class="project-tile-title">Spotlight Spectra from CD Diffraction</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Illuminant Spectra for Inverse Rendering"
+                    data-desc="Photo-realistic spectral rendering depends on knowing the spectral power distribution (SPD) of the scene's lights, which usually requires an expensive spectrometer. This work captures and reconstructs a uniform illuminant's SPD using a diffractive CD-ROM and a machine-learning model instead. It is accurate for spotlights in simulation and real-world tests, and noticeably improves spectral renderings of iridescent materials over an RGB reference. Joint work with D. S. Dhillon, ICVGIP 2024."
+                    data-tags="Machine Learning · Diffraction · Spectral Rendering"
+                    data-link="https://arxiv.org/abs/2410.22679">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/spd-reconstruction.png"></span>
+                        <span class="project-tile-title">Illuminant Spectra for Inverse Rendering</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Context-Based Color Correction"
+                    data-desc="Color-corrects a photo without a physical color chart by treating everyday surfaces with predictable colors (leaves, skin, white paint, grey stone) as a natural chart. Two Claude agents decide which surfaces to trust: a scene analyst boxes known-color surfaces and estimates the light, then an independent critic checks each corrected surface against its true color and accepts or sends feedback for up to three rounds. The physics stays out of the AI's hands: a separate stage fits the light's spectrum from the boxed surfaces and builds a single 3×3 color matrix, so the agents never edit pixels and only improvements are kept."
+                    data-tags="Claude API · Multi-Agent · Color Science · Python"
+                    data-link="https://parishamaheshj18.github.io/context-based-color-correction/"
+                    data-link-label="View project page">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/context-color-correction.png"></span>
+                        <span class="project-tile-title">Context-Based Color Correction</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="Color Correction that Preserves Spatial Variation"
+                    data-desc="Root-polynomial regression, a state-of-the-art color-correction method, lowers average color error on a reference chart as its order increases, but ignores spatial variation and can produce severe artifacts elsewhere in the photo. This poster proposes a method that preserves spatial variations, white-balances appropriately, and avoids over-damping luminance, unlike methods that only minimize CIE ΔE. Joint work with D. S. Dhillon, Jessica Baron, and Eric Patterson, SIGGRAPH 2023 Posters."
+                    data-tags="Color Correction · Regression · Computational Photography"
+                    data-link="https://doi.org/10.1145/3588028.3603681">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/spatial-color-correction.png"></span>
+                        <span class="project-tile-title">Color Correction that Preserves Spatial Variation</span>
+                    </span>
+                </button>
+                <button type="button" class="project-tile"
+                    data-title="VarIS: Variable Illumination Sphere"
+                    data-desc="A multi-purpose spherical lighting and imaging rig for capturing the geometry and appearance of faces, physical models, and spatially varying materials. Inspired by Light Stages and goniophotometers but built mostly from off-the-shelf components, VarIS combines multi-view high-resolution cameras with rapidly switchable lights and no moving parts. This makes it fast enough for live face capture and accurate enough for physically based material measurement. Joint work with Jessica Baron, X. Li, N. Itty, S. Greene, D. S. Dhillon, and Eric Patterson, published at STAG 2023 (Eurographics)."
+                    data-tags="Photometric Capture · Light Stage · Appearance Acquisition"
+                    data-link="https://doi.org/10.2312/stag.20231292">
+                    <span class="project-card">
+                        <span class="project-thumb" data-img="images/projects/varis.png"></span>
+                        <span class="project-tile-title">VarIS: Variable Illumination Sphere</span>
+                    </span>
+                </button>
                 <button type="button" class="project-tile"
                     data-title="Credit Card Fraud Detection"
                     data-desc="Built fraud-detection models with Random Forest, XGBoost, and logistic regression, combining them with risk analytics to quantify real-world financial impact."
@@ -693,6 +764,6 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=2"></script>
 </body>
 </html>

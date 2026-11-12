@@ -480,7 +480,12 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         titleEl.textContent = tile.dataset.title || '';
         descEl.textContent = tile.dataset.desc || '';
         tagsEl.textContent = tile.dataset.tags || '';
-        if (linkEl) linkEl.href = tile.dataset.link || defaultLink;
+        if (linkEl) {
+            const href = tile.dataset.link || defaultLink;
+            linkEl.href = href;
+            linkEl.textContent = (tile.dataset.linkLabel ||
+                (/github\.com/.test(href) ? 'View on GitHub' : 'Read the paper')) + ' ↗';
+        }
 
         const tileThumb = tile.querySelector('.project-thumb');
         thumbEl.className = 'modal-thumb';
